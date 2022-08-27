@@ -1,0 +1,8 @@
+#!/bin/bash
+certbot certonly --manual \
+	--server https://acme-v02.api.letsencrypt.org/directory \
+	--preferred-challenges dns \
+	-d *.$1 -d $1 \
+	-m saitomako@gmail.com \
+	--agree-tos \
+	--manual-public-ip-logging-ok

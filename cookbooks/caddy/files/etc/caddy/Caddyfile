@@ -1,0 +1,8 @@
+zitdev.pw {
+    root /var/www
+    log
+}
+
+zmemo.pw {
+    respond "Hello, zmemo.pw"
+}

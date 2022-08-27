@@ -1,0 +1,14 @@
+#!/bin/bash
+certbot certonly \
+--dry-run \
+--manual \
+--agree-tos \
+--no-eff-email \
+--manual-public-ip-logging-ok \
+--preferred-challenges dns-01 \
+--server https://acme-v02.api.letsencrypt.org/directory \
+-d "zitdev.pw" \
+-d "*.zitdev.pw" \
+-m "saitomako@gmail.com" \
+--manual-auth-hook /root/letsencrypt-dns-conoha/create_conoha_dns_record.sh \
+--manual-cleanup-hook /root/letsencrypt-dns-conoha/delete_conoha_dns_record.sh

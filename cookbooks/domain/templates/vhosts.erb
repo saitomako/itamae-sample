@@ -1,0 +1,27 @@
+<%- a = @domain.split(".") -%>
+<%- server = @domain -%>
+<%- if a.count == 2 then -%>
+  <%- server = @domain -%>
+<%- else -%>
+  <%- server = a[1]+"."+a[2] -%>
+<%- end -%>
+# <%= @domain %>.conf
+<VirtualHost *:80>
+    DocumentRoot /var/www/html/<%= @domain %>
+    ServerName <%= @domain %>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</VirtualHost>
+
+<VirtualHost *:443>
+    DocumentRoot /var/www/html/<%= @domain %>
+    ServerName <%= @domain %>
+
+    SSLEngine on
+    SSLProtocol all -SSLv2
+
+    SSLCertificateFile /etc/letsencrypt/live/<%= server %>/cert.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/<%= server %>/privkey.pem
+    SSLCertificateChainFile /etc/letsencrypt/live/<%= server %>/chain.pem
+</VirtualHost>
